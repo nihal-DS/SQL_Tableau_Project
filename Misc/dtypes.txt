@@ -1,0 +1,17 @@
+covid vaccines
+iso - varchar
+continent - carchar
+loc -varchar
+date - datetime2
+new test - int
+total test per thousand - flaot
+new test per thousand - float
+new tests smoothed - int
+new_tests_smoothed_per_thousand - float
+positive_rate - float
+test per case - flaot
+tests units - varchar
+total vaccination to new vaccinations smoothed - int
+next 4 float
+next 2 int
+rest float
