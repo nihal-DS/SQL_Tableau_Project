@@ -119,3 +119,14 @@
 
 --select * from project1..covid_deaths;
 
+-- ## New cases, deaths per day
+--select
+--	date,
+--	sum(cast(new_cases as bigint)) as new_cases,
+--	sum(cast(new_deaths as bigint)) as new_deaths
+--from project1..covid_deaths
+--group by date
+--order by date;
+
+
+
