@@ -128,5 +128,60 @@
 --group by date
 --order by date;
 
+-- ## Vaccinations table
+-- select * from project1..covid_vaccinations;
 
+-- ## Joining deaths and vaccination tables
+--select *
+--from project1..covid_deaths as d
+--join project1..covid_vaccinations as v
+--on d.location = v.location
+--and d.date = v.date;
 
+-- ## Number of people who were vaccinated daily
+--select 
+--	d.location
+--	, d.date
+--	, d.population
+--	, v.new_vaccinations
+--from project1..covid_deaths as d
+--join project1..covid_vaccinations as v
+--on d.location = v.location
+--and d.date = v.date
+--where d.continent is not null;
+
+-- ## Rolling sum of new vaccinations and percentage of population vaccinated
+with cte1 (continent
+		   , location
+		   , date
+		   , population
+		   , new_vaccination
+		   , rolling_sum)
+as
+(select 
+	d.continent
+	, d.location
+	, d.date
+	, d.population
+	, v.new_vaccinations
+	, sum(convert(bigint, new_vaccinations)) 
+	over(partition by d.location order by d.location, d.date) as rolling_sum
+from project1..covid_deaths d
+	join project1..covid_vaccinations v
+	on d.location = v.location
+	and d.date = v.date
+where d.continent is not null)
+
+select 
+	continent
+	, location
+	, date
+	, population
+	, new_vaccination
+	, rolling_sum
+	, (rolling_sum*1.0/population)*100 as percentage_vaccinated
+from cte1
+where location = 'India';
+--order by continent
+--		 , location
+--		 , date;
