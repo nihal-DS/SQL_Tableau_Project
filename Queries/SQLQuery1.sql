@@ -184,9 +184,9 @@ select
 	, (vaccinated_rolling_sum*1.0/population)*100 as percentage_vaccinated
 from cte1;
 where location = 'India';
-order by continent
-		 , location
-		 , date;
+--order by continent
+--		 , location
+--		 , date;
 
 
 -- ## Creating a view table for visualization later
